@@ -22,7 +22,7 @@ public class Job {
 	@Column(name = "categoryId")	
 
 	private ArrayList<Category> listaCategories;
-	@Column(name = "typeId")	
+	@Column(name = "tipoId")	
 
 	private ArrayList<Tipo> listaTipos;
 	

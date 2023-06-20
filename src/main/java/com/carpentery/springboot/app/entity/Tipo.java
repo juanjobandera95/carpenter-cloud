@@ -1,12 +1,19 @@
 package com.carpentery.springboot.app.entity;
-//@Entity
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Tipo {
+	@Column(name = "idTipo")	
 	private int idTipo;
+	@Column(name = "nameType")	
 	private String nameType;
+	@Column(name = "imageType")	
 	private String imageType;
+	@Column(name = "descriptionType")	
 	private String description;
-	private int typeId;
-	private int categoryId;
+	
 	
 	
 	public Tipo(String nameType, String imageType, String description) {
