@@ -1,11 +1,20 @@
-package com.carpentery.springboot.app.entity;
+package com.carpentery.springboot.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Tipo {
-	@Column(name = "idTipo")	
+@Table(name="tipo")
+
+public class TipoModel {
+	@Id
+	@GeneratedValue(strategy =GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
+	
 	private int idTipo;
 	@Column(name = "nameType")	
 	private String nameType;
@@ -16,7 +25,7 @@ public class Tipo {
 	
 	
 	
-	public Tipo(String nameType, String imageType, String description) {
+	public TipoModel(String nameType, String imageType, String description) {
 		
 		this.nameType = nameType;
 		this.imageType = imageType;
