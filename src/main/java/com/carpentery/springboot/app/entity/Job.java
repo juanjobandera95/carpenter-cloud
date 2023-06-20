@@ -2,12 +2,28 @@ package com.carpentery.springboot.app.entity;
 
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+
+@Entity
 public class Job {
+	@Id
 	private int id;
+	@Column(name = "jobName")
 	private String jobName;
+	@Column(name = "jobDescription")	
+
 	private String jobDescription;
+	@Column(name = "jobImage")	
+
 	private String jobImage;
+	@Column(name = "categoryId")	
+
 	private ArrayList<Category> listaCategories;
+	@Column(name = "typeId")	
+
 	private ArrayList<Tipo> listaTipos;
 	
 	
@@ -16,7 +32,7 @@ public class Job {
 	
 		this.jobName = jobName;
 		this.jobDescription = jobDescription;
-		this.jobImage = jobImage;
+		this.jobImage  = jobImage;
 		this.listaCategories =new ArrayList<Category>();
 		this.listaTipos = new ArrayList<Tipo>();
 	}

@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 //@RequestMapping("/cloud")
 
 public class ApiController {
-	 @GetMapping("/hello")
-	    public String sayHello() {
-	        return "Hello, World!dfdsfsd";
-	    }
+	 @GetMapping("/jobs")
+	   public static String getAll() {
+		 return "";
+	 }
+	 
 }
