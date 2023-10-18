@@ -27,6 +27,9 @@ public class TipoModel {
 	    @Column(name = "name_type")
 	    private String nameType;
 	
+	    // Constructor sin argumentos (constructor por defecto)
+	    public TipoModel() {
+	    }
 	public TipoModel(String nameType, String imageType, String description) {
 		
 		this.nameType = nameType;

@@ -28,12 +28,20 @@ public class CategoryModel {
     @Column(name = "name")
     private String name;
     
+    
+    public CategoryModel() {
+		
+		
+	}
+    
 	public CategoryModel(String name, String image, String description) {
 		
 		this.name = name;
 		this.image = image;
 		this.description = description;
 	}
+	
+	
 	public String getName() {
 		return name;
 	}

@@ -36,6 +36,9 @@ public class JobModel {
     @JoinColumn(name = "tipo_id")
     private TipoModel tipo;
 	
+    // Constructor sin argumentos (constructor por defecto)
+    public JobModel() {
+    }
 	public JobModel(String jobName, String jobDescription, String jobImage
 			) {
 	
