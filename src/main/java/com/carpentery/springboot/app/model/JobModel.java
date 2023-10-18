@@ -1,12 +1,14 @@
 package com.carpentery.springboot.app.model;
 
-import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -14,25 +16,25 @@ import javax.persistence.Table;
 @Table(name="job")
 public class JobModel {
 	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	
-	private int id;
-	@Column(name = "jobName")
-	private String jobName;
-	@Column(name = "jobDescription")	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	private String jobDescription;
-	@Column(name = "jobImage")	
+    @Column(name = "job_description")
+    private String jobDescription;
 
-	private String jobImage;
-	@Column(name = "categoryId")	
+    @Column(name = "job_image")
+    private String jobImage;
 
-	private ArrayList<CategoryModel> listaCategories;
-	@Column(name = "tipoId")	
+    @Column(name = "job_name")
+    private String jobName;
 
-	private ArrayList<TipoModel> listaTipos;
-	
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryModel category;
+
+    @ManyToOne
+    @JoinColumn(name = "tipo_id")
+    private TipoModel tipo;
 	
 	public JobModel(String jobName, String jobDescription, String jobImage
 			) {
@@ -40,8 +42,7 @@ public class JobModel {
 		this.jobName = jobName;
 		this.jobDescription = jobDescription;
 		this.jobImage  = jobImage;
-		this.listaCategories =new ArrayList<CategoryModel>();
-		this.listaTipos = new ArrayList<TipoModel>();
+		
 	}
 
 
@@ -75,25 +76,7 @@ public class JobModel {
 	}
 
 
-	public ArrayList<CategoryModel> getListaCategories() {
-		return listaCategories;
-	}
-
-
-	public void addListaCategories(CategoryModel category) {
-		this.listaCategories.add(category);
-	}
-
-
-	public ArrayList<TipoModel> getListaTipos() {
-		return listaTipos;
-	}
-
-
-	public void addListaTipos(TipoModel tipo) {
-		this.listaTipos.add(tipo);
-	}
-
+	
 	
 	
 	

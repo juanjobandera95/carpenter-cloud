@@ -5,25 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
+
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Entity
 @Table(name="category")
-
+@EntityScan 
 public class CategoryModel {
-	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	
-	private int idCategory;
-	@Column(name = "name")
-	private String name;
-	@Column(name = "image")
-	private String image;
-	@Column(name = "description")
-	private String description;
-	
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_category")
+    private int idCategory;
+    
+    @Column(name = "description")
+    private String description;
+    
+    @Column(name = "image")
+    private String image;
+    
+    @Column(name = "name")
+    private String name;
+    
 	public CategoryModel(String name, String image, String description) {
 		
 		this.name = name;

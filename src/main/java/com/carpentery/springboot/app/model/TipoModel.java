@@ -1,5 +1,6 @@
 package com.carpentery.springboot.app.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,29 +8,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="tipo")
 
 public class TipoModel {
-	@Id
-	@GeneratedValue(strategy =GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	
-	private int idTipo;
-	@Column(name = "nameType")	
-	private String nameType;
-	@Column(name = "imageType")	
-	private String imageType;
-	@Column(name = "descriptionType")	
-	private String description;
-	
-	
+	  @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @Column(name = "id_tipo")
+	    private int idTipo;
+
+	    @Column(name = "description_type")
+	    private String descriptionType;
+
+	    @Column(name = "image_type")
+	    private String imageType;
+
+	    @Column(name = "name_type")
+	    private String nameType;
 	
 	public TipoModel(String nameType, String imageType, String description) {
 		
 		this.nameType = nameType;
 		this.imageType = imageType;
-		this.description = description;
+		this.descriptionType = description;
 		
 	}
 
@@ -65,12 +67,12 @@ public class TipoModel {
 
 
 	public String getDescription() {
-		return description;
+		return descriptionType;
 	}
 
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.descriptionType = description;
 	}
 
 
