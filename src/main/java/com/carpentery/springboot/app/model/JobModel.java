@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name="job")
@@ -28,14 +30,17 @@ public class JobModel {
     @Column(name = "job_name")
     private String jobName;
 
+  
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonBackReference
     private CategoryModel category;
 
     @ManyToOne
     @JoinColumn(name = "tipo_id")
+    @JsonBackReference
     private TipoModel tipo;
-	
+    
     // Constructor sin argumentos (constructor por defecto)
     public JobModel() {
     }
@@ -72,8 +77,22 @@ public class JobModel {
 	public String getJobImage() {
 		return jobImage;
 	}
+	
+	
 
 
+	public CategoryModel getCategory() {
+		return category;
+	}
+	public void setCategory(CategoryModel category) {
+		this.category = category;
+	}
+	public TipoModel getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoModel tipo) {
+		this.tipo = tipo;
+	}
 	public void setJobImage(String jobImage) {
 		this.jobImage = jobImage;
 	}

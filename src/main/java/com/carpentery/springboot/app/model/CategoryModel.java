@@ -1,14 +1,18 @@
 package com.carpentery.springboot.app.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="category")
@@ -27,7 +31,9 @@ public class CategoryModel {
     
     @Column(name = "name")
     private String name;
-    
+    @OneToMany(mappedBy = "category")
+    @JsonManagedReference
+    private List<JobModel> jobs;
     
     public CategoryModel() {
 		
