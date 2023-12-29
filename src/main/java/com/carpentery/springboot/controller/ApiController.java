@@ -2,6 +2,7 @@ package com.carpentery.springboot.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,9 @@ import com.carpentery.springboot.app.model.TipoModel;
 import com.carpentery.springboot.app.repository.CategoryRepository;
 import com.carpentery.springboot.app.repository.JobRepository;
 import com.carpentery.springboot.app.repository.TipoRepository;
+import com.carpentery.springboot.service.CategoryService;
 import com.carpentery.springboot.service.JobService;
+import com.carpentery.springboot.service.TipoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
     @RestController
@@ -50,6 +53,12 @@ import org.modelmapper.ModelMapper;
      
         @Autowired
         private JobService jobService;
+        
+        @Autowired
+        private CategoryService categoryService;
+        
+        @Autowired
+        private TipoService tipoService;
         @PostMapping("/jobs/create")
         public ResponseEntity<String> createJob(@RequestBody JobModel jobModel) {
         	
@@ -122,8 +131,31 @@ import org.modelmapper.ModelMapper;
         public JobModel getJobById(@PathVariable Long jobId) {
             return jobRepository.findById(jobId).orElse(null);
         }
+        
+        @GetMapping("/category/{categoryId}")
+        public CategoryModel getCategoryById(@PathVariable Long categoryId) {
+            return categoryRepository.findById(categoryId).orElse(null);
+        }
+        
+        @GetMapping("/tipo/{tipoId}")
+        public TipoModel getTipoById(@PathVariable Long tipoId) {
+            return tipoRepository.findById(tipoId).orElse(null);
+        }
 
-        @DeleteMapping("/delete/{id}")
+        @GetMapping("/categories")
+        public List<CategoryModel>  getAllCategories() {
+            List<CategoryModel> categories = categoryService.getAllCategorias();
+            return categories;
+        }
+        
+        @GetMapping("/types")
+        public List<TipoModel>  getAllCategoriess() {
+            List<TipoModel> tipos = tipoService.getAllTipos();
+            return tipos;
+        }
+
+         
+        @DeleteMapping("/job/{id}")
         public ResponseEntity<String> deleteJob(@PathVariable Long id) {
             // Verificar si el trabajo existe antes de intentar eliminarlo
             JobModel existingJob = jobService.getJobById(id);
@@ -137,11 +169,79 @@ import org.modelmapper.ModelMapper;
             return new ResponseEntity<>("Trabajo eliminado exitosamente", HttpStatus.OK);
         }
         
-        @GetMapping("/categories")
-  	   public List<CategoryModel> getAllCategories() {
-  		 List<CategoryModel> cat = categoryRepository.findAll();
-  	        
-  	        
-  	        return cat;
-  	 }
+ 
+        @DeleteMapping("/category/{id}")
+        public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
+            // Verificar si el trabajo existe antes de intentar eliminarlo
+            CategoryModel existingCategory = categoryService.getCategoriaById(id);
+            if (existingCategory == null) {
+                return new ResponseEntity<>("Trabajo no encontrado", HttpStatus.NOT_FOUND);
+            }
+
+            // Eliminar el trabajo
+            categoryService.deleteCategoria(id);
+
+            return new ResponseEntity<>("Trabajo eliminado exitosamente", HttpStatus.OK);
+        }
+        
+        @DeleteMapping("/tipo/{id}")
+        public ResponseEntity<String> deleteTipo(@PathVariable Long id) {
+            // Verificar si el trabajo existe antes de intentar eliminarlo
+            TipoModel existingTipo = tipoService.getTipoById(id);
+            if (existingTipo == null) {
+                return new ResponseEntity<>("Trabajo no encontrado", HttpStatus.NOT_FOUND);
+            }
+
+            // Eliminar el trabajo
+            tipoService.deleteTipo(id);
+
+            return new ResponseEntity<>("Trabajo eliminado exitosamente", HttpStatus.OK);
+        }
+        // Obtener trabajos por tipo
+        @GetMapping("/tipos/{tipoId}/jobs")
+        public List<JobModel> getTrabajosByTipo(@PathVariable Long tipoId) {
+            TipoModel tipo = tipoRepository.findById(tipoId).orElse(null);
+            if (tipo != null) {
+                return jobRepository.findByTipo(tipo);
+            }
+            return Collections.emptyList();
+        }
+
+        // Obtener trabajos por categoría
+        @GetMapping("/categories/{categoriaId}/jobs")
+        public List<JobModel> getTrabajosByCategoria(@PathVariable Long categoriaId) {
+            CategoryModel category = categoryRepository.findById(categoriaId).orElse(null);
+            if (category != null) {
+                return jobRepository.findByCategory(category);
+            }
+            return Collections.emptyList();
+        }
+        
+        // Endpoint para crear un nuevo tipo
+        @PostMapping("/type/create")
+        public ResponseEntity<String> createType(@RequestBody TipoModel typeModel) {
+        	tipoService.createTipo(typeModel);
+            return new ResponseEntity<>("Tipo creado exitosamente", HttpStatus.CREATED);
+        }
+
+        // Endpoint para actualizar un tipo existente
+        @PutMapping("/type/update/{id}")
+        public ResponseEntity<String> updateType(@PathVariable Long id, @RequestBody TipoModel updatedType) {
+        	tipoService.updateTipo(id, updatedType);
+            return new ResponseEntity<>("Tipo actualizado exitosamente", HttpStatus.OK);
+        }
+
+        // Endpoint para crear una nueva categoría
+        @PostMapping("/category/create")
+        public ResponseEntity<String> createCategory(@RequestBody CategoryModel categoryModel) {
+            categoryService.createCategoria(categoryModel);
+            return new ResponseEntity<>("Categoría creada exitosamente", HttpStatus.CREATED);
+        }
+
+        // Endpoint para actualizar una categoría existente
+        @PutMapping("/category/update/{id}")
+        public ResponseEntity<String> updateCategory(@PathVariable Long id, @RequestBody CategoryModel updatedCategory) {
+            categoryService.updateCategoria(id, updatedCategory);
+            return new ResponseEntity<>("Categoría actualizada exitosamente", HttpStatus.OK);
+        }
     }
