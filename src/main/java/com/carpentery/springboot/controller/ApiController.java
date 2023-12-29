@@ -112,13 +112,14 @@ import org.modelmapper.ModelMapper;
             TipoModel tipo = tipoRepository.findById(updatedJobModel.getTipo().getId()).orElseThrow(() -> new RuntimeException("Tipo no encontrado"));
             CategoryModel category = categoryRepository.findById(updatedJobModel.getCategory().getId()).orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
+            
             // Actualiza las propiedades del trabajo existente
             existingJob.setNameJob(updatedJobModel.getNameJob());
             existingJob.setDescriptionJob(updatedJobModel.getDescriptionJob());
             existingJob.setImageJob(updatedJobModel.getImageJob());
             existingJob.setTipo(tipo);
             existingJob.setCategory(category);
-
+            
             // Guarda la actualización
             jobService.updateJob(existingJob);
 
